@@ -1,0 +1,14 @@
+# Arquivos de texto temporários usados só para explicação
+*.txt
+
+# Logs em geral
+*.log
+
+# Arquivos temporários de editor
+*.tmp
+*.swp
+*.bak
+
+# Arquivos específicos de sistema operacional
+.DS_Store
+Thumbs.db
