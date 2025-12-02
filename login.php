@@ -3,11 +3,10 @@ require_once "functions_db.php";
 require_once "authenticate.php";
 require_once "lib/sanitize.php";
 
-//comentei enquanto não tem tela de menu e não tem botão de logout
-// if ($login) {
-//     header("Location: index.php");
-//     exit;
-// }
+if ($login) {
+    header("Location: index.php");
+    exit;
+}
 
 $msg_sucesso = "";
 
