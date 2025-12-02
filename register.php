@@ -3,11 +3,10 @@ require_once "functions_db.php";
 require_once "authenticate.php";
 require_once "lib/sanitize.php";
 
-//comentando enquanto ainda não tem botão de logout
-// if ($login) {
-//     header("Location: index.php");
-//     exit;
-// }
+if ($login) {
+    header("Location: index.php");
+    exit;
+}
 
 $nome = $email = $senha = $confirmar_senha = "";
 $erro_nome = $erro_email = $erro_senha = $erro_confirmar_senha = $erro_geral = "";
