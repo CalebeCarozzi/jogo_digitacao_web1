@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto+Mono&display=swap');
+
+:root{
+    --bgcolor: #90B2D4;
+    --textoPrincipal: #223040;
+    --textoScundario: #3B4A5C;
+    --textoAtivo: #5a79b3;
+    --textoCorreto: #223040;
+    --textoErrado: #c25e5e;
+    --fontSize: 25px;
+    --buttonColor: #326496;
+}
+
+body{
+    font-family:'Bungee', sans-serif;
+    background-color: var(--bgcolor);;
+    color: var(--textoPrincipal)
+}
+
+ main{
+    width: 600px;
+    margin: 50px auto; 
+}
+
+h1 {
+    color: var(--textoPrincipal);
+}
+
+#header{
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--fontSize);
+    margin: 30px 6px 30px;
+}
+
+#buttons{
+    text-align: right;    
+}
+
+#info{
+    color: var(--textoPrincipal);
+}
+
+button{
+    background-color: var(--buttonColor);
+    border: 0;
+    color:black;
+    padding:10px 25px;
+    border-radius: 5px;
+
+}
+
+div#jogo{
+    line-height: 35px;
+    height: 105px;
+    overflow: hidden;
+    position: relative;
+}
+
+
+
+div.palavra{
+    font-family: 'Roboto Mono', monospace;
+    display: inline-block;
+    color: var(--textoAtivo);
+    margin: 0 5px;
+    font-size: 120%;
+}
+
+.letra.correta{
+    color:var(--textoCorreto);
+}
+.letra.incorreta{
+    color:var(--textoErrado);
+}
+
+@keyframes blink {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+    
+}
+#cursor{
+    width: 2px;
+    height: 1.5rem;
+    background-color: var(--textoPrincipal);
+    position: fixed;
+    top:197px;
+    animation: blink .7s infinite;
+    left:129px
+ }
+
+
+/* #erro-foco{
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    padding-top: 35px; 
+} */
+
+/* #palavras{
+    filter: blur(5px);
+} */
+
+/* #jogo:focus #palavras{
+    filter:blur(0);
+}
+#jogo:focus #erro-foco{
+    display: none;
+} */
