@@ -45,14 +45,22 @@ document.getElementById('jogo').addEventListener('keyup', ev => {
     //se digitarem uma letra
     if (isLetra) {
 
+        const jaResolvida =
+            currentLetra.classList.contains('correta') ||
+            currentLetra.classList.contains('incorreta');
+
+        if (jaResolvida) {
+            return;
+        }
+
         if (key === esperada) {
 
             const errouAntes = currentLetra.dataset.errou === "true";
 
             if (errouAntes) {
-                adicionarClasse(currentLetra, 'incorreta');  
+                adicionarClasse(currentLetra, 'incorreta');
             } else {
-                adicionarClasse(currentLetra, 'correta');   
+                adicionarClasse(currentLetra, 'correta');
             }
 
             removerClasse(currentLetra, 'current');
@@ -67,12 +75,13 @@ document.getElementById('jogo').addEventListener('keyup', ev => {
 
         } else {
 
-            const jaDigitouUltima =
-            currentLetra.classList.contains('correta') ||
-            currentLetra.classList.contains('incorreta');
-            if (jaDigitouUltima) {
-            return;
-            }   
+            const jaResolvida =
+                currentLetra.classList.contains('correta') ||
+                currentLetra.classList.contains('incorreta');
+
+            if (jaResolvida) {
+                return;
+            }
             currentLetra.dataset.errou = "true";
         }
 
@@ -86,7 +95,7 @@ document.getElementById('jogo').addEventListener('keyup', ev => {
         const proximaLetra = currentLetra.nextElementSibling;
 
         if (proximaLetra && proximaLetra.classList.contains("letra")) {
-            return; 
+            return;
         }
 
         const jaDigitouUltima =
@@ -100,7 +109,7 @@ document.getElementById('jogo').addEventListener('keyup', ev => {
         const proximaPalavra = currentPalavra.nextElementSibling;
 
         if (!proximaPalavra || !proximaPalavra.classList.contains('palavra')) {
-            return; 
+            return;
         }
 
         removerClasse(currentPalavra, "current");

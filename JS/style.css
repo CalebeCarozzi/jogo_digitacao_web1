@@ -96,21 +96,3 @@ div.palavra{
     left:129px
  }
 
-
-/* #erro-foco{
-    position: absolute;
-    inset: 0;
-    text-align: center;
-    padding-top: 35px; 
-} */
-
-/* #palavras{
-    filter: blur(5px);
-} */
-
-/* #jogo:focus #palavras{
-    filter:blur(0);
-}
-#jogo:focus #erro-foco{
-    display: none;
-} */
