@@ -27,7 +27,7 @@ function calcular_pontos_por_wpm(int $wpm): int
 }
 
 if (isset($_SESSION['ultimo_wpm']) && isset($_SESSION['ultimo_pontos'])) {
-    $wpm_atual   = $_SESSION['ultimo_wpm'];
+    $wpm_atual = $_SESSION['ultimo_wpm'];
     $pontos_atual = $_SESSION['ultimo_pontos'];
 
     unset($_SESSION['ultimo_wpm'], $_SESSION['ultimo_pontos']);
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
     if (!isset($_SESSION['user_id'])) {
         $mensagem_erro = "Sessão expirada. Faça login novamente.";
     } else {
-        $usuario_id = $_SESSION['user_id'];
+        $usuario_id = (int) $_SESSION['user_id'];
 
         $conn = connect_db();
         if (!$conn) {
@@ -53,15 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
 
                 $pontos = calcular_pontos_por_wpm($wpm);
 
-                $sql_insert = "
-                    INSERT INTO partidas (usuario_id, wpm, pontuacao)
-                    VALUES ($usuario_id, $wpm, $pontos)
-                ";
+                $sql_insert = "INSERT INTO partidas (usuario_id, wpm, pontuacao)
+                               VALUES ($usuario_id, $wpm, $pontos)";
 
                 if (!mysqli_query($conn, $sql_insert)) {
                     $mensagem_erro = "Erro ao salvar: " . mysqli_error($conn);
                 } else {
-                    $_SESSION['ultimo_wpm']    = $wpm;
+//aqui pedi ajuda de IA para ver como poderia fazer para que não houvesse reenvio do form com o resultado do jogo ao dar refresh
+//a solução foi o metodo POST - redirect - GET  --> faz o post e dpois redirect com get dai não tem form case de f5                    
+                    $_SESSION['ultimo_wpm'] = $wpm;
                     $_SESSION['ultimo_pontos'] = $pontos;
 
                     header('Location: game.php');
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo Digitação - Web 1</title>
-    <link rel="stylesheet" href="JS/style.css">
+    <link rel="stylesheet" href="JS/styleGame.css">
 </head>
 
 <body>
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
     <main>
 
         <?php if (!empty($mensagem_erro)) : ?>
-            <p style="color:#ff7777;text-align:center;"><?php echo $mensagem_erro; ?></p>
+            <p style="color:red ;text-align:center;"><?php echo $mensagem_erro; ?></p>
         <?php endif; ?>
 
         <form id="formPontuacao" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
