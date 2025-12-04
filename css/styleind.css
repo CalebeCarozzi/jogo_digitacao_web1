@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto+Mono&display=swap');
+
+:root {
+    --bgcolor: #161d27;
+    --textoPrincipal: #E6EDF3;
+    --textoSecundario: #A1A9BA;
+    --corBotao: #326496;
+    --corBotaoSair: #a33a3a;
+    --fonteTitulo: "Bungee", sans-serif;
+    --fonteTexto: "Roboto Mono", monospace;
+}
+
+/* fundo e centralização */
+body {
+    background-color: var(--bgcolor);
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    margin: 0;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* card principal */
+.card-menu {
+    background-color: #1f2733;
+    padding: 32px 40px;
+    border-radius: 10px;
+    width: 420px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* título */
+.card-menu h1 {
+    font-family: var(--fonteTitulo);
+    text-align: center;
+    margin: 0 0 20px;
+}
+
+/* textos */
+.boas-vindas,
+.instrucao {
+    margin: 4px 0;
+    color: var(--textoSecundario);
+}
+
+/* lista de opções */
+.menu-opcoes {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* botões do menu */
+.btn-menu {
+    display: block;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 6px;
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    text-decoration: none;
+    font-family: var(--fonteTexto);
+}
+
+.btn-menu:hover {
+    background-color: #3a78b2;
+}
+
+/* botão de logout com cor diferente */
+.btn-sair {
+    background-color: var(--corBotaoSair);
+}
+
+.btn-sair:hover {
+    background-color: #c44646;
+}
