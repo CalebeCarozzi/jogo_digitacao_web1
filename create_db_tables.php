@@ -69,7 +69,6 @@ if (!mysqli_query($conn, $sql)) {
 echo "Tabela de partidas criada<br>";
 
 
-
 $sql = "CREATE TABLE IF NOT EXISTS ligas (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(100) NOT NULL,
