@@ -98,7 +98,7 @@ main {
     color: var(--textoScundario);
 }
 
-div#jogo {
+#jogo {
     width: 100%;
     max-width: 600px;
     line-height: 35px;
@@ -131,16 +131,6 @@ div.palavra {
     padding-bottom: 3px;
     border-bottom: 3px solid var(--textoPrincipal);
     transition: border-color 0.15s ease;
-}
-
-#jogo.fim #palavras {
-    opacity: 50%;
-}
-
-#jogo.fim .letra.current {
-    padding-bottom: 0px;
-    border-bottom: none;
-    transition: none;
 }
 
 .botoes-jogo {
