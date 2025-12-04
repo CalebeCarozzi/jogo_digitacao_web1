@@ -24,7 +24,7 @@ if (isset($_SESSION["user_name"]) && $_SESSION["user_name"] !== "") {
 
     <ul style="list-style: none; padding-left: 0;">
         <li style="margin-bottom: 8px;">
-            <a href="game.php">Iniciar jogo</a>
+            <a href="JS/game.php">Iniciar jogo</a>
         </li>
         <li style="margin-bottom: 8px;">
             <a href="history.php">Histórico de partidas</a>

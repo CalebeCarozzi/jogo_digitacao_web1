@@ -1,64 +1,115 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto+Mono&display=swap');
 
 :root {
-    --bgcolor: #90B2D4;
-    --textoPrincipal: #223040;
-    --textoScundario: #3B4A5C;
+    --bgcolor: #161d27;
+    --textoPrincipal: #E6EDF3;
+    --textoScundario: #A1A9BA;
     --textoAtivo: #5a79b3;
     --textoCorreto: #223040;
     --textoErrado: #c25e5e;
-    --fontSize: 25px;
-    --buttonColor: #326496;
+    --corBotao: #326496;
 }
 
 body {
     font-family: 'Bungee', sans-serif;
     background-color: var(--bgcolor);
-    ;
-    color: var(--textoPrincipal)
+    color: var(--textoPrincipal);
+    margin: 0;
 }
 
 main {
-    width: 600px;
-    margin: 50px auto;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 16px;
 }
 
-h1 {
-    color: var(--textoPrincipal);
+.cabecalho-pagina {
+    text-align: center;
+    margin-top: 80px;
 }
 
-#header {
+.cabecalho-pagina h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.cabecalho-pagina p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--textoScundario);
+}
+
+.secao-jogo {
+    margin-top: 60px;
     display: flex;
-    justify-content: space-between;
-    font-size: var(--fontSize);
-    margin: 30px 6px 30px;
+    flex-direction: column;
+    align-items: center;
 }
 
-#buttons {
-    text-align: right;
+.linha-tempo {
+    width: 100%;
+    max-width: 600px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--textoPrincipal);
 }
 
 #info {
-    color: var(--textoPrincipal);
+    font-size: 18px;          
+    font-weight: 600;
+    color: var(--textoPrincipal); 
+    text-align: left;
 }
 
-button {
-    background-color: var(--buttonColor);
-    border: 0;
-    color: black;
-    padding: 10px 25px;
-    border-radius: 5px;
+.tempo-numero {
+    color: #58a6ff;
+    font-size: 24px;
+    font-weight: 800;
+}
 
+.msg-ajuda-inicial {
+    margin-top: 12px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: var(--textoScundario);
+    text-align: center;
+}
+
+.titulo-pontuacao {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    text-align: center;
+    color: var(--textoPrincipal);
+    letter-spacing: 1px;
+}
+
+.pontuacao-valor {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    text-align: center;
+    color: #58a6ff; 
+}
+
+.pontuacao-texto {
+    font-size: 16px;
+    text-align: center;
+    color: var(--textoScundario);
 }
 
 div#jogo {
+    width: 100%;
+    max-width: 600px;
     line-height: 35px;
     height: 110px;
     overflow: hidden;
     position: relative;
     outline: none;
+    margin: 0 auto;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
-
 
 div.palavra {
     font-family: 'Roboto Mono', monospace;
@@ -76,20 +127,37 @@ div.palavra {
     color: var(--textoErrado);
 }
 
-
 .letra.current {
     padding-bottom: 3px;
     border-bottom: 3px solid var(--textoPrincipal);
     transition: border-color 0.15s ease;
 }
 
-#jogo.fim #palavras{
-    opacity: 50% ;
+#jogo.fim #palavras {
+    opacity: 50%;
 }
 
-
-#jogo.fim .letra.current{
+#jogo.fim .letra.current {
     padding-bottom: 0px;
     border-bottom: none;
     transition: none;
+}
+
+.botoes-jogo {
+    margin-top: 24px;
+    width: 100%;
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    background-color: var(--corBotao);
+    border: 0;
+    color: black;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 1000;
 }
