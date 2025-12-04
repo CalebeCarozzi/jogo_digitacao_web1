@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../force_authenticate.php';
-require_once __DIR__ . '/../functions_db.php';
+require_once 'force_authenticate.php';
+require_once 'functions_db.php';
 
 $mensagem_erro = '';
 $wpm_atual = null;
@@ -26,9 +26,9 @@ function calcular_pontos_por_wpm(int $wpm): int
     else return 400;
 }
 
-if (isset($_SESSION['ultimo_wpm'], $_SESSION['ultimo_pontos'])) {
-    $wpm_atual   = (int) $_SESSION['ultimo_wpm'];
-    $pontos_atual = (int) $_SESSION['ultimo_pontos'];
+if (isset($_SESSION['ultimo_wpm']) && isset($_SESSION['ultimo_pontos'])) {
+    $wpm_atual   = $_SESSION['ultimo_wpm'];
+    $pontos_atual = $_SESSION['ultimo_pontos'];
 
     unset($_SESSION['ultimo_wpm'], $_SESSION['ultimo_pontos']);
 }
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
     if (!isset($_SESSION['user_id'])) {
         $mensagem_erro = "Sessão expirada. Faça login novamente.";
     } else {
-        $usuario_id = (int) $_SESSION['user_id'];
+        $usuario_id = $_SESSION['user_id'];
 
         $conn = connect_db();
         if (!$conn) {
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo Digitação - Web 1</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="JS/style.css">
 </head>
 
 <body>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
 
                 <div class="botoes-jogo">
                     <button type="button" id="botaoNovoJogo" style="display: none;">Novo Jogo</button>
-                    <button type="button" id="botaoVoltarMenu" onclick="window.location.href='../index.php'">
+                    <button type="button" id="botaoVoltarMenu" onclick="window.location.href='index.php'">
                         Voltar para o menu
                     </button>
                 </div>
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pontuacao'])) {
         const teveResultado = <?php echo $wpm_atual !== null ? 'true' : 'false'; ?>;
     </script>
 
-    <script src="jogo_digitacao.js"></script>
+    <script src="JS/jogo_digitacao.js"></script>
 
 </body>
 

@@ -184,7 +184,7 @@ document.getElementById('jogo').addEventListener('keyup', ev => {
     }
 });
 
-//botões - novo jogo 
+//botões
 document.getElementById('botaoNovoJogo').addEventListener('click', () => {
     clearInterval(window.timer);
     window.timer = null;
@@ -198,7 +198,7 @@ if (typeof teveResultado === 'undefined' || !teveResultado) {
     // o normal é- entra na página sem ter acabado de jogar
     novoJogo();
 } else {
-    // acabou de jogar e voltou do redirect: mostra botão Novo Jogo
+    // acabou de jogar e voltou do redirect: mostrar botão "Novo Jogo"
     const botaoNovo = document.getElementById('botaoNovoJogo');
     if (botaoNovo) {
         botaoNovo.style.display = 'inline-block';
