@@ -88,58 +88,62 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="utf-8">
     <title>Login - Jogo de Digitação</title>
+    <link rel="stylesheet" href="css/stylelogin.css">
 </head>
 
 <body>
-    <h1>Login</h1>
+    <div class="page-wrapper">
+        <div class="card-cadastro">
 
-    <?php if (!empty($msg_sucesso)): ?>
-        <div style="color: green; margin-bottom: 10px;">
-            <?php echo htmlspecialchars($msg_sucesso); ?>
-        </div>
-    <?php endif; ?>
+            <h1>Login</h1>
 
-    <?php if (!empty($erro_geral)): ?>
-        <div style="color:red; margin-bottom: 10px;">
-            <?php echo htmlspecialchars($erro_geral); ?>
-        </div>
-    <?php endif; ?>
-
-    <form method="post" action="login.php">
-        <div>
-            <label for="email">E-mail:</label><br>
-            <input type="text" id="email" name="email"
-                value="<?php echo htmlspecialchars($email); ?>">
-            <?php if (!empty($erro_email_senha)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_email_senha); ?></div>
+            <?php if (!empty($msg_sucesso)): ?>
+                <div class="msg-sucesso">
+                    <?php echo htmlspecialchars($msg_sucesso); ?>
+                </div>
             <?php endif; ?>
-            <?php if (!empty($erro_email)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_email); ?></div>
+
+            <?php if (!empty($erro_geral)): ?>
+                <div class="erro-geral">
+                    <?php echo htmlspecialchars($erro_geral); ?>
+                </div>
             <?php endif; ?>
+
+            <form method="post" action="login.php">
+                <div>
+                    <label for="email">E-mail:</label><br>
+                    <input type="text" id="email" name="email"
+                           value="<?php echo htmlspecialchars($email); ?>">
+                    <?php if (!empty($erro_email_senha)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_email_senha); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($erro_email)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_email); ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="senha">Senha:</label><br>
+                    <input type="password" id="senha" name="senha">
+                    <?php if (!empty($erro_email_senha)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_email_senha); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($erro_senha)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_senha); ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <br>
+
+                <input type="submit" value="Entrar">
+            </form>
+
+            <a href="register.php" class="btn-voltar">Não tem conta? Cadastre-se</a>
+
         </div>
-
-        <br>
-
-        <div>
-            <label for="senha">Senha:</label><br>
-            <input type="password" id="senha" name="senha">
-            <?php if (!empty($erro_email_senha)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_email_senha); ?></div>
-            <?php endif; ?>
-            <?php if (!empty($erro_senha)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_senha); ?></div>
-            <?php endif; ?>
-        </div>
-
-        <br>
-
-        <input type="submit" value="Entrar">
-    </form>
-
-    <p>
-        Não tem conta?
-        <a href="register.php">Cadastre-se</a>
-    </p>
+    </div>
 </body>
 
 </html>

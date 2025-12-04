@@ -122,63 +122,70 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="utf-8">
     <title>Cadastro - Jogo de Digitação</title>
+    <link rel="stylesheet" href="css/stylereg.css">
 </head>
 
 <body>
-    <h1>Cadastro de Usuário</h1>
+    <div class="page-wrapper">
+        <div class="card-cadastro">
 
+            <h1>Cadastro de Usuário</h1>
 
-    <?php if (!empty($erro_geral)): ?>
-        <div style="color:red; margin-bottom: 10px;">
-            <?php echo htmlspecialchars($erro_geral); ?>
-        </div>
-    <?php endif; ?>
-
-    <form method="post" action="register.php">
-        <div>
-            <label for="nome">Nome:</label><br>
-            <input type="text" id="nome" name="nome" value="<?php echo $nome; ?>">
-            <?php if (!empty($erro_nome)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_nome); ?></div>
+            <?php if (!empty($erro_geral)): ?>
+                <div class="erro-geral">
+                    <?php echo htmlspecialchars($erro_geral); ?>
+                </div>
             <?php endif; ?>
+
+            <form method="post" action="register.php">
+                <div>
+                    <label for="nome">Nome:</label><br>
+                    <input type="text" id="nome" name="nome" value="<?php echo $nome; ?>">
+                    <?php if (!empty($erro_nome)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_nome); ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="email">E-mail:</label><br>
+                    <input type="text" id="email" name="email" value="<?php echo $email; ?>">
+                    <?php if (!empty($erro_email)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_email); ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="senha">Senha (mínimo 8 caracteres):</label><br>
+                    <input type="password" id="senha" name="senha">
+                    <?php if (!empty($erro_senha)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_senha); ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="confirmar_senha">Confirme a senha:</label><br>
+                    <input type="password" id="confirmar_senha" name="confirmar_senha">
+                    <?php if (!empty($erro_confirmar_senha)): ?>
+                        <div style="color:red;"><?php echo htmlspecialchars($erro_confirmar_senha); ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <br>
+
+                <input type="submit" value="Criar usuário">
+            </form>
+
+            <!-- link virou botão estilizado -->
+            <a href="login.php" class="btn-voltar">Voltar para tela de login</a>
+
         </div>
-
-        <br>
-
-        <div>
-            <label for="email">E-mail:</label><br>
-            <input type="text" id="email" name="email" value="<?php echo $email; ?>">
-            <?php if (!empty($erro_email)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_email); ?></div>
-            <?php endif; ?>
-        </div>
-
-        <br>
-
-        <div>
-            <label for="senha">Senha (mínimo 8 caracteres):</label><br>
-            <input type="password" id="senha" name="senha">
-            <?php if (!empty($erro_senha)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_senha); ?></div>
-            <?php endif; ?>
-        </div>
-
-        <br>
-
-        <div>
-            <label for="confirmar_senha">Confirme a senha:</label><br>
-            <input type="password" id="confirmar_senha" name="confirmar_senha">
-            <?php if (!empty($erro_confirmar_senha)): ?>
-                <div style="color:red;"><?php echo htmlspecialchars($erro_confirmar_senha); ?></div>
-            <?php endif; ?>
-        </div>
-
-        <br>
-
-        <input type="submit" value="Criar usuário">
-    </form>
-
-    <p><a href="login.php">Voltar para tela de login</a></p>
+    </div>
 </body>
 
 </html>
