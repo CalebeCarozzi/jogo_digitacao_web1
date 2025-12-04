@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <form method="post" action="register.php">
                 <div>
                     <label for="nome">Nome:</label><br>
-                    <input type="text" id="nome" name="nome" value="<?php echo $nome; ?>">
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="<?php echo $nome; ?>">
                     <?php if (!empty($erro_nome)): ?>
                         <div style="color:red;"><?php echo htmlspecialchars($erro_nome); ?></div>
                     <?php endif; ?>
@@ -150,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div>
                     <label for="email">E-mail:</label><br>
-                    <input type="text" id="email" name="email" value="<?php echo $email; ?>">
+                    <input type="text" id="email" name="email" placeholder="Digite seu e-mail" value="<?php echo $email; ?>">
                     <?php if (!empty($erro_email)): ?>
                         <div style="color:red;"><?php echo htmlspecialchars($erro_email); ?></div>
                     <?php endif; ?>
@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div>
                     <label for="senha">Senha (mínimo 8 caracteres):</label><br>
-                    <input type="password" id="senha" name="senha">
+                    <input type="password" id="senha" placeholder="Digite sua senha" name="senha">
                     <?php if (!empty($erro_senha)): ?>
                         <div style="color:red;"><?php echo htmlspecialchars($erro_senha); ?></div>
                     <?php endif; ?>
@@ -170,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div>
                     <label for="confirmar_senha">Confirme a senha:</label><br>
-                    <input type="password" id="confirmar_senha" name="confirmar_senha">
+                    <input type="password" id="confirmar_senha" placeholder="Confirme sua senha" name="confirmar_senha">
                     <?php if (!empty($erro_confirmar_senha)): ?>
                         <div style="color:red;"><?php echo htmlspecialchars($erro_confirmar_senha); ?></div>
                     <?php endif; ?>

@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <form method="post" action="login.php">
                 <div>
                     <label for="email">E-mail:</label><br>
-                    <input type="text" id="email" name="email"
+                    <input type="text" id="email" name="email" placeholder="Digite seu e-mail"
                            value="<?php echo htmlspecialchars($email); ?>">
                     <?php if (!empty($erro_email_senha)): ?>
                         <div style="color:red;"><?php echo htmlspecialchars($erro_email_senha); ?></div>
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div>
                     <label for="senha">Senha:</label><br>
-                    <input type="password" id="senha" name="senha">
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
                     <?php if (!empty($erro_email_senha)): ?>
                         <div style="color:red;"><?php echo htmlspecialchars($erro_email_senha); ?></div>
                     <?php endif; ?>
