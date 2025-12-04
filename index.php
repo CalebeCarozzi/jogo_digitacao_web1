@@ -30,7 +30,7 @@ if (isset($_SESSION["user_name"]) && $_SESSION["user_name"] !== "") {
             <a href="history.php">Histórico de partidas</a>
         </li>
         <li style="margin-bottom: 8px;">
-            <a href="ranking_usuarios.php">Ranking de usuários</a>
+            <a href="ranking_jogadores.php">Ranking de jogadores</a>
         </li>
         <li style="margin-bottom: 8px;">
             <a href="ligas.php">Ligas</a>
