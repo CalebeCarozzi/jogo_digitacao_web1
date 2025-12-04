@@ -51,6 +51,7 @@ echo "Tabela de usuarios criada<br>";
 $sql = "CREATE TABLE IF NOT EXISTS partidas (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   usuario_id INT UNSIGNED NOT NULL,
+  wpm INT NOT NULL,
   pontuacao INT NOT NULL,
   data_partida DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -66,7 +67,6 @@ if (!mysqli_query($conn, $sql)) {
     die("Erro ao criar tabela partidas: " . mysqli_error($conn));
 }
 echo "Tabela de partidas criada<br>";
-
 
 
 

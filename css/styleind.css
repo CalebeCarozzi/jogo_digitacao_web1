@@ -25,34 +25,76 @@ body {
     align-items: center;
 }
 
+/* retângulo grande no canto superior direito */
+.user-banner {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background-color: #1f2733;
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid #2b3647;
+}
+
+/* "botão" visual para o nome (não clicável) */
+.user-banner-name {
+    display: block;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    font-size: 0.9rem;
+}
+
+/* botão de logout com o mesmo estilo base dos botões do menu */
+.user-banner-logout {
+    display: block;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: var(--corBotaoSair);
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.user-banner-logout:hover {
+    background-color: #c44646;
+}
+
 /* card principal */
 .card-menu {
     background-color: #1f2733;
-    padding: 32px 40px;
+    padding: 24px 32px 32px;
     border-radius: 10px;
-    width: 420px;
+    width: 520px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* título */
-.card-menu h1 {
-    font-family: var(--fonteTitulo);
-    text-align: center;
-    margin: 0 0 20px;
+/* header interno (só o título) */
+.menu-header {
+    margin-bottom: 20px;
 }
 
-/* textos */
-.boas-vindas,
-.instrucao {
-    margin: 4px 0;
-    color: var(--textoSecundario);
+.card-menu h1 {
+    font-family: var(--fonteTitulo);
+    margin: 0;
+    text-align: center;
 }
 
 /* lista de opções */
 .menu-opcoes {
     list-style: none;
     padding: 0;
-    margin: 20px 0 0;
+    margin: 10px 0 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -74,7 +116,7 @@ body {
     background-color: #3a78b2;
 }
 
-/* botão de logout com cor diferente */
+/* se usar botão de sair dentro da lista no futuro */
 .btn-sair {
     background-color: var(--corBotaoSair);
 }

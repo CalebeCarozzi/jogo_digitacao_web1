@@ -15,20 +15,24 @@ if (isset($_SESSION["user_name"]) && $_SESSION["user_name"] !== "") {
     <link rel="stylesheet" href="css/styleind.css">
 </head>
 <body>
+    <div class="user-banner">
+        <div class="user-banner-name">
+            <?php echo htmlspecialchars($nome_usuario); ?>
+        </div>
+        <a href="logout.php" class="user-banner-logout">Logout</a>
+    </div>
+
     <div class="page-wrapper">
         <div class="card-menu">
-            <h1>Jogo de Digitação</h1>
-
-            <p class="boas-vindas">
-                Olá, <strong><?php echo htmlspecialchars($nome_usuario); ?></strong>!
-            </p>
+            <div class="menu-header">
+                <h1>Jogo de Digitação</h1>
+            </div>
 
             <ul class="menu-opcoes">
                 <li><a href="game.php" class="btn-menu">Iniciar jogo</a></li>
                 <li><a href="history.php" class="btn-menu">Histórico de partidas</a></li>
                 <li><a href="ranking_usuarios.php" class="btn-menu">Ranking de usuários</a></li>
                 <li><a href="ligas.php" class="btn-menu">Ligas</a></li>
-                <li><a href="logout.php" class="btn-menu btn-sair">Logout</a></li>
             </ul>
         </div>
     </div>
