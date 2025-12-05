@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto+Mono&display=swap');
+
+:root {
+    --bgcolor: #161d27;
+    --textoPrincipal: #E6EDF3;
+    --textoSecundario: #A1A9BA;
+    --corBotao: #326496;
+    --corDestaque1: #ffd700;
+    --corDestaque2: #c0c0c0;
+    --corDestaque3: #cd7f32;
+    --fonteTitulo: "Bungee", sans-serif;
+    --fonteTexto: "Roboto Mono", monospace;
+}
+
+/* fundo e centralização */
+body {
+    background-color: var(--bgcolor);
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    margin: 0;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* card principal */
+.card-ligas {
+    background-color: #1f2733;
+    padding: 24px 32px 28px;
+    border-radius: 10px;
+    width: 900px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* título */
+.card-ligas h1 {
+    font-family: var(--fonteTitulo);
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+/* info usuário e mensagens */
+.info-usuario {
+    color: var(--textoSecundario);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.msg-sucesso {
+    color: #4caf50;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* layout de duas colunas */
+.conteudo-ligas {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    gap: 24px;
+    margin-top: 12px;
+}
+
+/* coluna lista de ligas */
+.coluna-ligas-lista {
+    min-width: 0;
+}
+
+/* coluna formulário */
+.coluna-ligas-form h2 {
+    font-family: var(--fonteTitulo);
+    font-size: 1.1rem;
+    margin: 0 0 12px;
+}
+
+.campo-form {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: var(--textoSecundario);
+}
+
+.campo-form input[type="text"] {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #2b3647;
+    background-color: #0f141c;
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    box-sizing: border-box;
+}
+
+.erros-liga {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.erros-liga ul {
+    padding-left: 18px;
+    margin: 4px 0 0;
+}
+
+/* filtros de ordenação */
+.filtros-ordenacao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: var(--textoSecundario);
+}
+
+.btn-filtro {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #2b3647;
+    background-color: #202a3a;
+    color: var(--textoSecundario);
+    font-family: var(--fonteTexto);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-filtro:hover {
+    background-color: #2b3647;
+}
+
+.btn-filtro.ativo {
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    border-color: var(--corBotao);
+}
+
+/* mensagem sem dados */
+.sem-dados {
+    color: var(--textoSecundario);
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+/* wrapper com scroll para tabela */
+.tabela-wrapper {
+    max-height: 260px;
+    overflow-y: auto;
+    border-radius: 6px;
+    border: 1px solid #2b3647;
+}
+
+/* scrollbar opcional */
+.tabela-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.tabela-wrapper::-webkit-scrollbar-thumb {
+    background-color: #2b3647;
+    border-radius: 3px;
+}
+
+/* tabela de ligas */
+.tabela-ligas {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+/* cabeçalho fixo */
+.tabela-ligas thead {
+    background-color: #243143;
+}
+
+.tabela-ligas thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #243143;
+}
+
+.tabela-ligas th,
+.tabela-ligas td {
+    padding: 8px 10px;
+    text-align: center;
+}
+
+.tabela-ligas th {
+    font-weight: bold;
+    color: var(--textoPrincipal);
+}
+
+/* linhas alternadas */
+.tabela-ligas tbody tr:nth-child(odd) {
+    background-color: #1b2432;
+}
+
+.tabela-ligas tbody tr:nth-child(even) {
+    background-color: #151c27;
+}
+
+.tabela-ligas tbody tr:hover {
+    background-color: #2b3b55;
+}
+
+/* destaque top 3 ligas */
+.linha-ranking-liga.pos-1 td {
+    border-top: 2px solid var(--corDestaque1);
+    border-bottom: 2px solid var(--corDestaque1);
+}
+
+.linha-ranking-liga.pos-2 td {
+    border-top: 2px solid var(--corDestaque2);
+    border-bottom: 2px solid var(--corDestaque2);
+}
+
+.linha-ranking-liga.pos-3 td {
+    border-top: 2px solid var(--corDestaque3);
+    border-bottom: 2px solid var(--corDestaque3);
+}
+
+/* destacar ligas do usuário */
+.linha-ranking-liga.ligas-do-usuario td {
+    background-color: #1e3148;
+}
+
+/* colunas da ordenação atual */
+.col-semana.ordenacao-ativa,
+.col-total.ordenacao-ativa {
+    background-color: #2f3f59;
+}
+
+/* botões padrão */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    text-decoration: none;
+    font-family: var(--fonteTexto);
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #3a78b2;
+}
+
+/* botão ver liga menor */
+.btn-ver-liga {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+}
+
+/* rodapé com botão voltar */
+.botoes-rodape {
+    margin-top: 16px;
+    text-align: center;
+}
+
+/* rodapé do form */
+.botoes-form {
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* responsivo básico */
+@media (max-width: 900px) {
+    .card-ligas {
+        width: 100%;
+        border-radius: 0;
+        height: 100vh;
+    }
+
+    .conteudo-ligas {
+        grid-template-columns: 1fr;
+    }
+}
