@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto+Mono&display=swap');
+
+:root {
+    --bgcolor: #161d27;
+    --textoPrincipal: #E6EDF3;
+    --textoSecundario: #A1A9BA;
+    --corBotao: #326496;
+    --fonteTitulo: "Bungee", sans-serif;
+    --fonteTexto: "Roboto Mono", monospace;
+}
+
+/* fundo e centralização */
+body {
+    background-color: var(--bgcolor);
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    margin: 0;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* card principal */
+.card-history {
+    background-color: #1f2733;
+    padding: 24px 32px 28px;
+    border-radius: 10px;
+    width: 720px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* título */
+.card-history h1 {
+    font-family: var(--fonteTitulo);
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+/* texto de usuário */
+.info-usuario {
+    color: var(--textoSecundario);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+/* wrapper com scroll para a tabela */
+.tabela-wrapper {
+    max-height: 260px;       /* altura visível da lista */
+    overflow-y: auto;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #2b3647;
+}
+
+/* barra de rolagem opcionalmente estilizada */
+.tabela-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.tabela-wrapper::-webkit-scrollbar-thumb {
+    background-color: #2b3647;
+    border-radius: 3px;
+}
+
+/* tabela */
+.tabela-partidas {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+/* cabeçalho fixo */
+.tabela-partidas thead {
+    background-color: #243143;
+}
+
+.tabela-partidas thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #243143;
+}
+
+.tabela-partidas th,
+.tabela-partidas td {
+    padding: 8px 10px;
+    text-align: center;
+}
+
+.tabela-partidas th {
+    font-weight: bold;
+    color: var(--textoPrincipal);
+}
+
+.tabela-partidas tbody tr:nth-child(odd) {
+    background-color: #1b2432;
+}
+
+.tabela-partidas tbody tr:nth-child(even) {
+    background-color: #151c27;
+}
+
+.tabela-partidas tbody tr:hover {
+    background-color: #2b3b55;
+}
+
+/* card do resumo embaixo da tabela */
+.resumo-card {
+    margin-top: 16px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background-color: #1b2432;
+    border: 1px solid #2b3647;
+    color: var(--textoSecundario);
+    font-size: 0.9rem;
+}
+
+/* botão padrão */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    text-decoration: none;
+    font-family: var(--fonteTexto);
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #3a78b2;
+}
+
+/* container do botão voltar */
+.botoes-rodape {
+    margin-top: 16px;
+    text-align: center;
+}
