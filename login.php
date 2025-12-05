@@ -109,11 +109,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
             <?php endif; ?>
 
-            <form method="post" action="login.php">
+            <form id="formLogin" method="post" action="login.php">
                 <div>
                     <label for="email">E-mail:</label><br>
                     <input type="text" id="email" name="email" placeholder="Digite seu e-mail"
-                           value="<?php echo htmlspecialchars($email); ?>">
+                        value="<?php echo htmlspecialchars($email); ?>">
                     <?php if (!empty($erro_email_senha)): ?>
                         <div style="color:red;"><?php echo htmlspecialchars($erro_email_senha); ?></div>
                     <?php endif; ?>
@@ -144,6 +144,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         </div>
     </div>
+    <script src="JS/validacao_forms.js"></script>
+</body>
+
 </body>
 
 </html>
