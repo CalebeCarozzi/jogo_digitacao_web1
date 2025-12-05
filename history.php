@@ -21,7 +21,6 @@ $sql = "SELECT id, wpm, pontuacao, data_partida
         ORDER BY data_partida DESC";
 
 $result_partidas = mysqli_query($conn, $sql);
-
 if (!$result_partidas) {
     die("Erro ao buscar partidas: " . mysqli_error($conn));
 }
@@ -34,7 +33,6 @@ $sql = "SELECT
         WHERE usuario_id = $usuario_id";
 
 $result_totais = mysqli_query($conn, $sql);
-
 if (!$result_totais) {
     die("Erro ao buscar totais: " . mysqli_error($conn));
 }
@@ -45,14 +43,12 @@ $total_pontos   = (int) $totais['total_pontos'];
 $recorde_wpm    = (int) $totais['recorde_wpm'];
 $total_partidas = (int) $totais['total_partidas'];
 
-
 $sql = "SELECT COALESCE(SUM(pontuacao), 0) AS total_semana
         FROM partidas
         WHERE usuario_id = $usuario_id
         AND data_partida >= (NOW() - INTERVAL 1 HOUR)";
 
 $result_semana = mysqli_query($conn, $sql);
-
 if (!$result_semana) {
     die("Erro ao buscar pontuação semanal: " . mysqli_error($conn));
 }
@@ -64,87 +60,90 @@ close_db($conn);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <title>Histórico de Partidas - Jogo Digitação</title>
+    <link rel="stylesheet" href="css/stylehistory.css">
 </head>
-
 <body>
+    <div class="page-wrapper">
+        <div class="card-history">
 
-    <h1>Histórico de Partidas</h1>
+            <h1>Histórico de Partidas</h1>
 
-    <p>
-        Usuário:
-        <strong><?php echo htmlspecialchars($nome_usuario); ?></strong>
-    </p>
+            <p class="info-usuario">
+                Usuário:
+                <strong><?php echo htmlspecialchars($nome_usuario); ?></strong>
+            </p>
 
-    <?php if ($total_partidas === 0): ?>
-        <p>Você ainda não jogou nenhuma partida.</p>
-        <button type="button" onclick="window.location.href='game.php'">
-            Jogar uma partida
-        </button>
+            <?php if ($total_partidas === 0): ?>
 
-    <?php else: ?>
+                <p class="resumo-partidas">Você ainda não jogou nenhuma partida.</p>
+                <div class="botoes-rodape">
+                    <button type="button" class="btn" onclick="window.location.href='game.php'">
+                        Jogar uma partida
+                    </button>
+                </div>
 
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Partida</th>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Pontos por minuto</th>
-                    <th>Pontuação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $contador = 1;
+            <?php else: ?>
 
-                while ($partida = mysqli_fetch_assoc($result_partidas)):
-                    $timestamp = strtotime($partida['data_partida']);
-                    $data_formatada = date('j/n/Y', $timestamp);
-                    $hora_formatada = date('H', $timestamp) . "h";
-                ?>
-                    <tr>
-                        <td><?php echo $contador; ?></td>
-                        <td><?php echo $data_formatada; ?></td>
-                        <td><?php echo $hora_formatada; ?></td>
-                        <td><?php echo (int) $partida['wpm']; ?></td>
-                        <td><?php echo (int) $partida['pontuacao']; ?></td>
-                    </tr>
-                <?php
-                    $contador++;
-                endwhile;
-                ?>
-            </tbody>
-        </table>
+                <div class="tabela-wrapper">
+                    <table class="tabela-partidas">
+                        <thead>
+                            <tr>
+                                <th>Partida</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Pontos por minuto</th>
+                                <th>Pontuação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $contador = 1;
 
-        <hr>
+                            while ($partida = mysqli_fetch_assoc($result_partidas)):
+                                $timestamp = strtotime($partida['data_partida']);
+                                $data_formatada = date('j/n/Y', $timestamp);
+                                $hora_formatada = date('H', $timestamp) . "h";
+                            ?>
+                                <tr>
+                                    <td><?php echo $contador; ?></td>
+                                    <td><?php echo $data_formatada; ?></td>
+                                    <td><?php echo $hora_formatada; ?></td>
+                                    <td><?php echo (int) $partida['wpm']; ?></td>
+                                    <td><?php echo (int) $partida['pontuacao']; ?></td>
+                                </tr>
+                            <?php
+                                $contador++;
+                            endwhile;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
 
-        <h2>Resumo das suas partidas</h2>
-        <p>
-            <strong>Total de partidas jogadas:</strong>
-            <?php echo $total_partidas; ?>
-            <br>
-            <strong>Soma total de pontos:</strong>
-            <?php echo $total_pontos; ?>
-            <br>
-            <strong>Soma de pontos na última semana:</strong>
-            <?php echo $total_semana; ?>
-            <br>
-            <strong>Recorde de palavras por minuto (WPM):</strong>
-            <?php echo $recorde_wpm; ?>
-        </p>
+                <div class="resumo-card">
+                    <p>
+                        <strong>Total de partidas jogadas:</strong>
+                        <?php echo $total_partidas; ?><br>
+                        <strong>Soma total de pontos:</strong>
+                        <?php echo $total_pontos; ?><br>
+                        <strong>Soma de pontos na última semana:</strong>
+                        <?php echo $total_semana; ?><br>
+                        <strong>Recorde de palavras por minuto (WPM):</strong>
+                        <?php echo $recorde_wpm; ?>
+                    </p>
+                </div>
 
-    <?php endif; ?>
+            <?php endif; ?>
 
-    <p>
-        <button type="button" onclick="window.location.href='index.php'">
-            Voltar ao menu
-        </button>
-    </p>
+            <div class="botoes-rodape">
+                <button type="button" class="btn" onclick="window.location.href='index.php'">
+                    Voltar ao menu
+                </button>
+            </div>
 
+        </div>
+    </div>
 </body>
-
 </html>

@@ -10,7 +10,7 @@ if (isset($_SESSION['user_name'])) {
     $nome_usuario = "Jogador";
 }
 
-$ordenacao = "total"; 
+$ordenacao = "total";
 
 if (isset($_GET['order'])) {
     $valor_order = $_GET['order'];
@@ -24,7 +24,6 @@ if (isset($_GET['order'])) {
     }
 }
 
-//define o ORDER BY pelo que escolhe
 $ordenacao_sql = "total_pontos DESC";
 
 if ($ordenacao === "recorde") {
@@ -35,7 +34,6 @@ if ($ordenacao === "recorde") {
     $ordenacao_sql = "total_pontos DESC, recorde_wpm DESC";
 }
 
-//definindo classe para estilização da coluna selecionada para ordenação
 $classe_order_recorde = "";
 $classe_order_semana  = "";
 $classe_order_total   = "";
@@ -76,123 +74,125 @@ if (!$result_ranking) {
 }
 
 close_db($conn);
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <title>Ranking de Jogadores - Jogo Digitação</title>
+    <link rel="stylesheet" href="css/styleranking.css">
 </head>
-
 <body>
+    <div class="page-wrapper">
+        <div class="card-ranking">
 
-    <h1>Ranking de Jogadores</h1>
+            <h1>Ranking de Jogadores</h1>
 
-    <p>
-        Usuário logado:
-        <strong><?php echo htmlspecialchars($nome_usuario); ?></strong>
-    </p>
+            <p class="info-usuario">
+                Usuário logado:
+                <strong><?php echo htmlspecialchars($nome_usuario); ?></strong>
+            </p>
 
-    <form method="get" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-        <p>
-            <span>Ordenar por: </span>
+            <form method="get" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                <div class="filtros-ordenacao">
+                    <span>Ordenar por:</span>
 
-            <button type="submit" name="order" value="recorde">
-                Recorde de palavras por minuto
-            </button>
-            
-            <button type="submit" name="order" value="semana">
-                Pontos na última semana
-            </button>
+                    <button type="submit" name="order" value="recorde"
+                            class="btn-filtro<?php echo $ordenacao === 'recorde' ? ' ativo' : ''; ?>">
+                        Recorde de palavras por minuto
+                    </button>
 
-            <button type="submit" name="order" value="total">
-                Pontos totais
-            </button>
-
-        </p>
-    </form>
-
-    <?php if (mysqli_num_rows($result_ranking) === 0): ?>
-
-        <p>Nenhum usuário encontrado no sistema.</p>
-
-    <?php else: ?>
-
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Posição</th>
-                    <th>Jogadores</th>
-                    <th class="col-recorde<?php echo $classe_order_recorde; ?>">
-                        Recorde (palavras por minuto)
-                    </th>
-                    <th class="col-semana<?php echo $classe_order_semana; ?>">
+                    <button type="submit" name="order" value="semana"
+                            class="btn-filtro<?php echo $ordenacao === 'semana' ? ' ativo' : ''; ?>">
                         Pontos na última semana
-                    </th>
-                    <th class="col-total<?php echo $classe_order_total; ?>">
+                    </button>
+
+                    <button type="submit" name="order" value="total"
+                            class="btn-filtro<?php echo $ordenacao === 'total' ? ' ativo' : ''; ?>">
                         Pontos totais
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $posicao = 1;
+                    </button>
+                </div>
+            </form>
 
-                while ($linha = mysqli_fetch_assoc($result_ranking)):
+            <?php if (mysqli_num_rows($result_ranking) === 0): ?>
 
-                    $id_usuario_linha   = (int) $linha['usuario_id'];
-                    $nome_usuario_linha = $linha['nome'];
-                    $recorde_wpm        = (int) $linha['recorde_wpm'];
-                    $pontos_semana      = (int) $linha['pontos_semana'];
-                    $total_pontos       = (int) $linha['total_pontos'];
+                <p class="sem-dados">Nenhum usuário encontrado no sistema.</p>
 
-                    //arrumando classes pra estilizar no css 
-                    $classes_linha = "linha-ranking";
+            <?php else: ?>
 
-                    //destacar top 3 melhores
-                    if ($posicao === 1) {
-                        $classes_linha .= " pos-1";
-                    } elseif ($posicao === 2) {
-                        $classes_linha .= " pos-2";
-                    } elseif ($posicao === 3) {
-                        $classes_linha .= " pos-3";
-                    }
+                <div class="tabela-wrapper">
+                    <table class="tabela-ranking">
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Jogadores</th>
+                                <th class="col-recorde<?php echo $classe_order_recorde; ?>">
+                                    Recorde (palavras por minuto)
+                                </th>
+                                <th class="col-semana<?php echo $classe_order_semana; ?>">
+                                    Pontos na última semana
+                                </th>
+                                <th class="col-total<?php echo $classe_order_total; ?>">
+                                    Pontos totais
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $posicao = 1;
 
-                    //destacar o usuário logado
-                    if ($id_usuario_linha === $usuario_id) {
-                        $classes_linha .= " usuario-logado";
-                    }
-                ?>
-                    <tr class="<?php echo $classes_linha; ?>">
-                        <td><?php echo $posicao; ?>º</td>
-                        <td><?php echo htmlspecialchars($nome_usuario_linha); ?></td>
-                        <td class="col-recorde<?php echo $classe_order_recorde; ?>">
-                            <?php echo $recorde_wpm; ?>
-                        </td>
-                        <td class="col-semana<?php echo $classe_order_semana; ?>">
-                            <?php echo $pontos_semana; ?>
-                        </td>
-                        <td class="col-total<?php echo $classe_order_total; ?>">
-                            <?php echo $total_pontos; ?>
-                        </td>
-                    </tr>
-                <?php
-                    $posicao++;
-                endwhile;
-                ?>
-            </tbody>
-        </table>
+                            while ($linha = mysqli_fetch_assoc($result_ranking)):
 
-    <?php endif; ?>
+                                $id_usuario_linha   = (int) $linha['usuario_id'];
+                                $nome_usuario_linha = $linha['nome'];
+                                $recorde_wpm        = (int) $linha['recorde_wpm'];
+                                $pontos_semana      = (int) $linha['pontos_semana'];
+                                $total_pontos       = (int) $linha['total_pontos'];
 
-    <p>
-        <button type="button" onclick="window.location.href='index.php'">
-            Voltar ao menu
-        </button>
-    </p>
+                                $classes_linha = "linha-ranking";
 
+                                if ($posicao === 1) {
+                                    $classes_linha .= " pos-1";
+                                } elseif ($posicao === 2) {
+                                    $classes_linha .= " pos-2";
+                                } elseif ($posicao === 3) {
+                                    $classes_linha .= " pos-3";
+                                }
+
+                                if ($id_usuario_linha === $usuario_id) {
+                                    $classes_linha .= " usuario-logado";
+                                }
+                            ?>
+                                <tr class="<?php echo $classes_linha; ?>">
+                                    <td><?php echo $posicao; ?>º</td>
+                                    <td><?php echo htmlspecialchars($nome_usuario_linha); ?></td>
+                                    <td class="col-recorde<?php echo $classe_order_recorde; ?>">
+                                        <?php echo $recorde_wpm; ?>
+                                    </td>
+                                    <td class="col-semana<?php echo $classe_order_semana; ?>">
+                                        <?php echo $pontos_semana; ?>
+                                    </td>
+                                    <td class="col-total<?php echo $classe_order_total; ?>">
+                                        <?php echo $total_pontos; ?>
+                                    </td>
+                                </tr>
+                            <?php
+                                $posicao++;
+                            endwhile;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            <?php endif; ?>
+
+            <div class="botoes-rodape">
+                <button type="button" class="btn" onclick="window.location.href='index.php'">
+                    Voltar ao menu
+                </button>
+            </div>
+
+        </div>
+    </div>
 </body>
-
 </html>

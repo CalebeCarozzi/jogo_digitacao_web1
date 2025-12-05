@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto+Mono&display=swap');
+
+:root {
+    --bgcolor: #161d27;
+    --textoPrincipal: #E6EDF3;
+    --textoSecundario: #A1A9BA;
+    --corBotao: #326496;
+    --corDestaque1: #ffd700;  /* ouro */
+    --corDestaque2: #c0c0c0;  /* prata */
+    --corDestaque3: #cd7f32;  /* bronze */
+    --fonteTitulo: "Bungee", sans-serif;
+    --fonteTexto: "Roboto Mono", monospace;
+}
+
+/* fundo e centralização */
+body {
+    background-color: var(--bgcolor);
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    margin: 0;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* card principal */
+.card-ranking {
+    background-color: #1f2733;
+    padding: 24px 32px 28px;
+    border-radius: 10px;
+    width: 780px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* título */
+.card-ranking h1 {
+    font-family: var(--fonteTitulo);
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+/* info usuário */
+.info-usuario {
+    color: var(--textoSecundario);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+/* filtros de ordenação */
+.filtros-ordenacao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: var(--textoSecundario);
+}
+
+.btn-filtro {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #2b3647;
+    background-color: #202a3a;
+    color: var(--textoSecundario);
+    font-family: var(--fonteTexto);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-filtro:hover {
+    background-color: #2b3647;
+}
+
+.btn-filtro.ativo {
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    border-color: var(--corBotao);
+}
+
+/* mensagem de sem dados */
+.sem-dados {
+    color: var(--textoSecundario);
+    font-size: 0.9rem;
+    margin-top: 12px;
+}
+
+/* wrapper com scroll para tabela, se crescer muito */
+.tabela-wrapper {
+    max-height: 260px;
+    overflow-y: auto;
+    border-radius: 6px;
+    border: 1px solid #2b3647;
+}
+
+/* opcional: barra de rolagem */
+.tabela-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.tabela-wrapper::-webkit-scrollbar-thumb {
+    background-color: #2b3647;
+    border-radius: 3px;
+}
+
+/* tabela ranking */
+.tabela-ranking {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+/* cabeçalho fixo */
+.tabela-ranking thead {
+    background-color: #243143;
+}
+
+.tabela-ranking thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #243143;
+}
+
+.tabela-ranking th,
+.tabela-ranking td {
+    padding: 8px 10px;
+    text-align: center;
+}
+
+.tabela-ranking th {
+    font-weight: bold;
+    color: var(--textoPrincipal);
+}
+
+/* linhas alternadas */
+.tabela-ranking tbody tr:nth-child(odd) {
+    background-color: #1b2432;
+}
+
+.tabela-ranking tbody tr:nth-child(even) {
+    background-color: #151c27;
+}
+
+.tabela-ranking tbody tr:hover {
+    background-color: #2b3b55;
+}
+
+/* destaque top 3 */
+.linha-ranking.pos-1 td {
+    border-top: 2px solid var(--corDestaque1);
+    border-bottom: 2px solid var(--corDestaque1);
+}
+
+.linha-ranking.pos-2 td {
+    border-top: 2px solid var(--corDestaque2);
+    border-bottom: 2px solid var(--corDestaque2);
+}
+
+.linha-ranking.pos-3 td {
+    border-top: 2px solid var(--corDestaque3);
+    border-bottom: 2px solid var(--corDestaque3);
+}
+
+/* destacar usuário logado */
+.linha-ranking.usuario-logado td {
+    background-color: #1e3148;
+}
+
+/* colunas da ordenação atual */
+.col-recorde.ordenacao-ativa,
+.col-semana.ordenacao-ativa,
+.col-total.ordenacao-ativa {
+    background-color: #2f3f59;
+}
+
+/* botão padrão reaproveitado */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    text-decoration: none;
+    font-family: var(--fonteTexto);
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #3a78b2;
+}
+
+/* rodapé com botão voltar */
+.botoes-rodape {
+    margin-top: 16px;
+    text-align: center;
+}
