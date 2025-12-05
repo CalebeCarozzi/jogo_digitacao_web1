@@ -21,7 +21,7 @@ $mensagem_erro = "";
 $mensagem_sucesso = "";
 $erros_entrada = [];
 
-//nensagem de sucesso vinda do redirect
+//mensagem de sucesso vinda do redirect
 if (isset($_SESSION['mensagem_liga_detalhe'])) {
     $mensagem_sucesso = $_SESSION['mensagem_liga_detalhe'];
     unset($_SESSION['mensagem_liga_detalhe']);
@@ -180,130 +180,129 @@ close_db($conn);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <title>Detalhes da liga</title>
+    <title>Detalhes da liga - Jogo Digitação</title>
+    <link rel="stylesheet" href="css/styleligas_detalhe.css">
 </head>
-
 <body>
+    <div class="page-wrapper">
+        <div class="card-detalhe">
 
-    <h1>Detalhes da liga</h1>
+            <h1>Detalhes da liga</h1>
 
-    <?php if (!empty($mensagem_erro)): ?>
+            <?php if (!empty($mensagem_erro)): ?>
+                <p class="msg-erro"><?php echo htmlspecialchars($mensagem_erro); ?></p>
+            <?php else: ?>
 
-        <p><?php echo htmlspecialchars($mensagem_erro); ?></p>
+                <?php if (!empty($mensagem_sucesso)): ?>
+                    <p class="msg-sucesso">
+                        <?php echo htmlspecialchars($mensagem_sucesso); ?>
+                    </p>
+                <?php endif; ?>
 
-    <?php else: ?>
+                <div class="info-liga-container">
+                    <p class="info-linha">
+                        <strong>Nome da liga:</strong> <?php echo htmlspecialchars($liga['nome']); ?>
+                    </p>
+                    <p class="info-linha">
+                        <strong>Dono da liga:</strong> <?php echo htmlspecialchars($liga['nome_dono']); ?>
+                    </p>
+                    <p class="info-linha">
+                        <strong>Data de criação:</strong>
+                        <?php echo date('d/m/Y', strtotime($liga['data_criacao'])); ?>
+                    </p>
+                    <hr class="divisor">
+                    <p class="info-linha">
+                        <strong>Pontos totais da liga:</strong> <?php echo $pontos_totais_liga; ?>
+                    </p>
+                    <p class="info-linha">
+                        <strong>Pontos na última semana:</strong> <?php echo $pontos_semana_liga; ?>
+                    </p>
+                </div>
 
-        <?php if (!empty($mensagem_sucesso)): ?>
-            <p style="color: green;">
-                <?php echo htmlspecialchars($mensagem_sucesso); ?>
-            </p>
-        <?php endif; ?>
+                <!-- Seção de Entrar na Liga -->
+                <div class="secao-entrar">
+                    <h2>Entrar na liga</h2>
 
-        <p>
-            <strong>Nome da liga:</strong>
-            <?php echo htmlspecialchars($liga['nome']); ?><br>
+                    <?php if (!empty($erros_entrada)): ?>
+                        <div class="erros-entrada">
+                            <ul>
+                                <?php foreach ($erros_entrada as $erro): ?>
+                                    <li><?php echo htmlspecialchars($erro); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
 
-            <strong>Dono da liga:</strong>
-            <?php echo htmlspecialchars($liga['nome_dono']); ?><br>
+                    <?php if ($usuario_ja_membro): ?>
+                        <p class="msg-ja-membro">Você já participa desta liga.</p>
+                    <?php else: ?>
+                        <form method="post" action="ligas_detalhe.php?liga_id=<?php echo $liga_id; ?>" class="form-entrar">
+                            <div class="campo-form">
+                                <label for="chave_entrada">Palavra-chave da liga:</label>
+                                <input type="text" id="chave_entrada" name="chave_entrada">
+                            </div>
+                            <button type="submit" class="btn">Entrar na liga</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
 
-            <strong>Data de criação:</strong>
-            <?php
-                $data_criacao = date('d/m/Y', strtotime($liga['data_criacao']));
-                echo $data_criacao;
-            ?>
-            <br>
-        </p>
+                <!-- Ranking da liga -->
+                <div class="secao-ranking">
+                    <h2>Ranking de usuários da liga</h2>
 
-        <p>
-            <strong>Pontos totais da liga:</strong>
-            <?php echo $pontos_totais_liga; ?><br>
+                    <?php if (count($ranking_usuarios) === 0): ?>
+                        <p class="sem-dados">Nenhum usuário encontrado nesta liga.</p>
+                    <?php else: ?>
+                        <div class="tabela-wrapper">
+                            <table class="tabela-detalhe">
+                                <thead>
+                                    <tr>
+                                        <th>Posição</th>
+                                        <th>Usuário</th>
+                                        <th>Pontos na liga</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $posicao = 1;
+                                    foreach ($ranking_usuarios as $linha):
+                                        $nome_usuario = $linha['nome_usuario'];
+                                        $pontos_liga  = (int) $linha['pontos_liga'];
 
-            <strong>Pontos na última semana da liga:</strong>
-            <?php echo $pontos_semana_liga; ?><br>
-        </p>
+                                        $classes_linha = "";
+                                        if ($posicao === 1) $classes_linha = "pos-1";
+                                        elseif ($posicao === 2) $classes_linha = "pos-2";
+                                        elseif ($posicao === 3) $classes_linha = "pos-3";
+                                    ?>
+                                        <tr class="<?php echo $classes_linha; ?>">
+                                            <td><?php echo $posicao; ?>º</td>
+                                            <td><?php echo htmlspecialchars($nome_usuario); ?></td>
+                                            <td><?php echo $pontos_liga; ?></td>
+                                        </tr>
+                                    <?php
+                                        $posicao++;
+                                    endforeach;
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+                </div>
 
-        <h2>Entrar na liga</h2>
+            <?php endif; ?>
 
-        <?php if (!empty($erros_entrada)): ?>
-            <div style="color: red;">
-                <ul>
-                    <?php foreach ($erros_entrada as $erro): ?>
-                        <li><?php echo htmlspecialchars($erro); ?></li>
-                    <?php endforeach; ?>
-                </ul>
+            <div class="botoes-rodape">
+                <button type="button" class="btn" onclick="window.location.href='ligas.php'">
+                    Voltar para ligas
+                </button>
+                <button type="button" class="btn" onclick="window.location.href='index.php'">
+                    Voltar ao menu
+                </button>
             </div>
-        <?php endif; ?>
 
-        <?php if ($usuario_ja_membro): ?>
-
-            <p>Você já participa desta liga.</p>
-
-        <?php else: ?>
-
-            <form method="post" action="ligas_detalhe.php?liga_id=<?php echo $liga_id; ?>">
-                <p>
-                    <label for="chave_entrada">Palavra-chave da liga:</label><br>
-                    <input type="text" id="chave_entrada" name="chave_entrada">
-                </p>
-                <p>
-                    <button type="submit">Entrar na liga</button>
-                </p>
-            </form>
-
-        <?php endif; ?>
-
-        <h2>Ranking de usuários da liga</h2>
-
-        <?php if (count($ranking_usuarios) === 0): ?>
-
-            <p>Nenhum usuário encontrado nesta liga.</p>
-
-        <?php else: ?>
-
-            <table border="1" cellpadding="8" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Posição</th>
-                        <th>Usuário</th>
-                        <th>Pontos na liga</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $posicao = 1;
-                    foreach ($ranking_usuarios as $linha):
-                        $nome_usuario = $linha['nome_usuario'];
-                        $pontos_liga  = (int) $linha['pontos_liga'];
-                    ?>
-                        <tr>
-                            <td><?php echo $posicao; ?>º</td>
-                            <td><?php echo htmlspecialchars($nome_usuario); ?></td>
-                            <td><?php echo $pontos_liga; ?></td>
-                        </tr>
-                    <?php
-                        $posicao++;
-                    endforeach;
-                    ?>
-                </tbody>
-            </table>
-
-        <?php endif; ?>
-
-    <?php endif; ?>
-
-    <p>
-        <button type="button" onclick="window.location.href='ligas.php'">
-            Voltar para ligas
-        </button>
-
-        <button type="button" onclick="window.location.href='index.php'">
-            Voltar ao menu
-        </button>
-    </p>
-
+        </div>
+    </div>
 </body>
-
 </html>
