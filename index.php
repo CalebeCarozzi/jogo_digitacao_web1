@@ -31,7 +31,7 @@ if (isset($_SESSION["user_name"]) && $_SESSION["user_name"] !== "") {
             <ul class="menu-opcoes">
                 <li><a href="game.php" class="btn-menu">Iniciar jogo</a></li>
                 <li><a href="history.php" class="btn-menu">Histórico de partidas</a></li>
-                <li><a href="ranking_usuarios.php" class="btn-menu">Ranking de usuários</a></li>
+                <li><a href="ranking_jogadores.php" class="btn-menu">Ranking de jogadores</a></li>
                 <li><a href="ligas.php" class="btn-menu">Ligas</a></li>
             </ul>
         </div>
