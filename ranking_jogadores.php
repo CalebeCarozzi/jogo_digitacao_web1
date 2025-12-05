@@ -58,7 +58,7 @@ $sql = "SELECT
         COALESCE(SUM(p.pontuacao), 0) AS total_pontos,
         COALESCE(SUM(
             CASE
-                WHEN p.data_partida >= (NOW() - INTERVAL 2 HOUR) THEN p.pontuacao
+                WHEN p.data_partida >= (NOW() - INTERVAL 7 DAY) THEN p.pontuacao
                 ELSE 0
             END
         ), 0) AS pontos_semana

@@ -46,7 +46,7 @@ $total_partidas = (int) $totais['total_partidas'];
 $sql = "SELECT COALESCE(SUM(pontuacao), 0) AS total_semana
         FROM partidas
         WHERE usuario_id = $usuario_id
-        AND data_partida >= (NOW() - INTERVAL 1 HOUR)";
+        AND data_partida >= (NOW() - INTERVAL 7 DAY)";
 
 $result_semana = mysqli_query($conn, $sql);
 if (!$result_semana) {

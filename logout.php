@@ -20,14 +20,5 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// [
-//   "lifetime" => 0,
-//   "path" => "/",
-//   "domain" => "",
-//   "secure" => false,
-//   "httponly" => true
-// ]
-//nome seria -> PHPSESSID
-
 header("Location: login.php");
 exit;
