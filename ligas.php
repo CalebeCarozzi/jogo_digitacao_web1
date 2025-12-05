@@ -22,7 +22,7 @@ if (isset($_SESSION['mensagem_liga_sucesso'])) {
     unset($_SESSION['mensagem_liga_sucesso']);
 }
 
-$ordenacao = "total"; 
+$ordenacao = "total";
 
 if (isset($_GET['order'])) {
     $valor_order = $_GET['order'];
@@ -113,7 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-
 $sql =
     "    SELECT 
         l.id,
@@ -142,10 +141,7 @@ while ($linha = mysqli_fetch_assoc($result_ligas)) {
     $data_criacao = $linha['data_criacao'];
     $membro_atual = $linha['membro_atual'];
 
-    $eh_membro = false;
-    if ($membro_atual !== null) {
-        $eh_membro = true;
-    }
+    $eh_membro = ($membro_atual !== null);
 
     $data_criacao_db = mysqli_real_escape_string($conn, $data_criacao);
 
@@ -170,7 +166,7 @@ while ($linha = mysqli_fetch_assoc($result_ligas)) {
             JOIN partidas p ON p.usuario_id = lm.usuario_id
             WHERE lm.liga_id = $liga_id
             AND p.data_partida >= '$data_criacao_db'
-            AND p.data_partida >= (NOW() - INTERVAL  1 hour)";
+            AND p.data_partida >= (NOW() - INTERVAL 1 hour)";
 
     $res_semana = mysqli_query($conn, $sql);
 
@@ -194,9 +190,6 @@ while ($linha = mysqli_fetch_assoc($result_ligas)) {
 
 close_db($conn);
 
-
-//AQUI AJUDA DE IA 
-//usei usort para ordenação pra não ter que fazer um select muito complexo pra pegar as infos da tabela 
 if ($ordenacao === "semana") {
     usort($ligas, function ($a, $b) {
         if ($a['pontos_semana'] === $b['pontos_semana']) {
@@ -205,7 +198,6 @@ if ($ordenacao === "semana") {
         return ($a['pontos_semana'] > $b['pontos_semana']) ? -1 : 1;
     });
 } else {
-    //ordenar por pontos_totais
     usort($ligas, function ($a, $b) {
         if ($a['pontos_totais'] === $b['pontos_totais']) {
             return 0;
@@ -216,158 +208,163 @@ if ($ordenacao === "semana") {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <title>Ligas - Jogo Digitação</title>
+    <link rel="stylesheet" href="css/styleligas.css">
 </head>
-
 <body>
+    <div class="page-wrapper">
+        <div class="card-ligas">
 
-    <h1>Ligas</h1>
+            <h1>Ligas</h1>
 
-    <p>
-        Jogador logado:
-        <strong><?php echo htmlspecialchars($nome_usuario_logado); ?></strong>
-    </p>
+            <p class="info-usuario">
+                Jogador logado:
+                <strong><?php echo htmlspecialchars($nome_usuario_logado); ?></strong>
+            </p>
 
-    <?php if (!empty($mensagem_sucesso)): ?>
-        <p style="color: green;" id="mansagem-sucesso">
-            <?php echo htmlspecialchars($mensagem_sucesso); ?>
-        </p>
-    <?php endif; ?>
+            <?php if (!empty($mensagem_sucesso)): ?>
+                <p class="msg-sucesso" id="mansagem-sucesso">
+                    <?php echo htmlspecialchars($mensagem_sucesso); ?>
+                </p>
+            <?php endif; ?>
 
-    <div class="pagina-ligas">
-        <div class="conteudo-ligas">
-            <div class="coluna-ligas-lista">
+            <div class="conteudo-ligas">
+                <div class="coluna-ligas-lista">
 
-                <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <p>
-                        <span> Ordenar por: </span>
-                        <button type="submit" name="order" value="total">
-                            Pontos totais da liga
-                        </button>
+                    <form method="get" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <div class="filtros-ordenacao">
+                            <span>Ordenar por:</span>
 
-                        <button type="submit" name="order" value="semana">
+                        <button type="submit" name="order" value="semana"
+                            class="btn-filtro<?php echo $ordenacao === 'semana' ? ' ativo' : ''; ?>">
                             Pontos na última semana
                         </button>
-                    </p>
-                </form>
 
-                <?php if (count($ligas) === 0): ?>
-
-                    <p id="sem-liga-cadastrada" >Nenhuma liga cadastrada ainda.</p>
-
-                <?php else: ?>
-
-                    <table border="1" cellpadding="8" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Posição</th>
-                                <th>Nome da liga</th>
-                                <th class="col-semana<?php echo $classe_order_semana; ?>">
-                                    Pontos na última semana
-                                </th>
-                                <th class="col-total<?php echo $classe_order_total; ?>">
-                                    Pontos totais da liga
-                                </th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $posicao = 1;
-
-                            foreach ($ligas as $liga):
-
-                                $liga_id = $liga['id'];
-                                $nome_liga = $liga['nome'];
-                                $pontos_semana = $liga['pontos_semana'];
-                                $pontos_totais = $liga['pontos_totais'];
-                                $eh_membro = $liga['eh_membro'];
-
-                                //classes
-                                $classes_linha = "linha-ranking-liga";
-
-                                if ($posicao === 1) {
-                                    $classes_linha .= " pos-1";
-                                } elseif ($posicao === 2) {
-                                    $classes_linha .= " pos-2";
-                                } elseif ($posicao === 3) {
-                                    $classes_linha .= " pos-3";
-                                }
-
-                                if ($eh_membro) {
-                                    $classes_linha .= " ligas-do-usuario";
-                                }
-                            ?>
-                                <tr class="<?php echo $classes_linha; ?>">
-                                    <td><?php echo $posicao; ?>º</td>
-                                    <td><?php echo htmlspecialchars($nome_liga); ?></td>
-                                    <td class="col-semana<?php echo $classe_order_semana; ?>">
-                                        <?php echo $pontos_semana; ?>
-                                    </td>
-                                    <td class="col-total<?php echo $classe_order_total; ?>">
-                                        <?php echo $pontos_totais; ?>
-                                    </td>
-                                    <td>
-                                        <button type="button"
-                                            onclick="window.location.href='ligas_detalhe.php?liga_id=<?php echo $liga_id; ?>'">
-                                            Ver liga
-                                        </button>
-                                    </td>
-                                </tr>
-                            <?php
-                                $posicao++;
-                            endforeach;
-                            ?>
-                        </tbody>
-                    </table>
-
-                <?php endif; ?>
-            </div>
-
-            <div class="coluna-ligas-form">
-                <h2>Criar nova liga</h2>
-
-                <?php if (!empty($erros_criacao)): ?>
-                    <div style="color: red;">
-                        <p><strong>Erros ao criar liga:</strong></p>
-                        <ul>
-                            <?php foreach ($erros_criacao as $erro): ?>
-                                <li><?php echo htmlspecialchars($erro); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <button type="submit" name="order" value="total"
+                                class="btn-filtro<?php echo $ordenacao === 'total' ? ' ativo' : ''; ?>">
+                            Pontos totais da liga
+                        </button>
                     </div>
-                <?php endif; ?>
+                    </form>
 
-                <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <p>
-                        <label for="nome_liga">Nome da liga:</label><br>
-                        <input type="text" id="nome_liga" name="nome_liga"
-                            value="<?php echo htmlspecialchars($nome_liga_form); ?>">
-                    </p>
+                    <?php if (count($ligas) === 0): ?>
 
-                    <p>
-                        <label for="chave_entrada">Palavra-chave da liga:</label><br>
-                        <input type="text" id="chave_entrada" name="chave_entrada"
-                            value="<?php echo htmlspecialchars($chave_entrada_form); ?>">
-                    </p>
+                        <p class="sem-dados" id="sem-liga-cadastrada">Nenhuma liga cadastrada ainda.</p>
 
-                    <p>
-                        <button type="submit">Criar liga</button>
-                    </p>
-                </form>
+                    <?php else: ?>
+
+                        <div class="tabela-wrapper">
+                            <table class="tabela-ligas">
+                                <thead>
+                                    <tr>
+                                        <th>Posição</th>
+                                        <th>Nome da liga</th>
+                                        <th class="col-semana<?php echo $classe_order_semana; ?>">
+                                            Pontos na última semana
+                                        </th>
+                                        <th class="col-total<?php echo $classe_order_total; ?>">
+                                            Pontos totais da liga
+                                        </th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $posicao = 1;
+
+                                    foreach ($ligas as $liga):
+
+                                        $liga_id = $liga['id'];
+                                        $nome_liga = $liga['nome'];
+                                        $pontos_semana = $liga['pontos_semana'];
+                                        $pontos_totais = $liga['pontos_totais'];
+                                        $eh_membro = $liga['eh_membro'];
+
+                                        $classes_linha = "linha-ranking-liga";
+
+                                        if ($posicao === 1) {
+                                            $classes_linha .= " pos-1";
+                                        } elseif ($posicao === 2) {
+                                            $classes_linha .= " pos-2";
+                                        } elseif ($posicao === 3) {
+                                            $classes_linha .= " pos-3";
+                                        }
+
+                                        if ($eh_membro) {
+                                            $classes_linha .= " ligas-do-usuario";
+                                        }
+                                    ?>
+                                        <tr class="<?php echo $classes_linha; ?>">
+                                            <td><?php echo $posicao; ?>º</td>
+                                            <td><?php echo htmlspecialchars($nome_liga); ?></td>
+                                            <td class="col-semana<?php echo $classe_order_semana; ?>">
+                                                <?php echo $pontos_semana; ?>
+                                            </td>
+                                            <td class="col-total<?php echo $classe_order_total; ?>">
+                                                <?php echo $pontos_totais; ?>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-ver-liga"
+                                                    onclick="window.location.href='ligas_detalhe.php?liga_id=<?php echo $liga_id; ?>'">
+                                                    Ver liga
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        $posicao++;
+                                    endforeach;
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+
+                <div class="coluna-ligas-form">
+                    <h2>Criar nova liga</h2>
+
+                    <?php if (!empty($erros_criacao)): ?>
+                        <div class="erros-liga">
+                            <p><strong>Erros ao criar liga:</strong></p>
+                            <ul>
+                                <?php foreach ($erros_criacao as $erro): ?>
+                                    <li><?php echo htmlspecialchars($erro); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <div class="campo-form">
+                            <label for="nome_liga">Nome da liga:</label><br>
+                            <input type="text" id="nome_liga" name="nome_liga"
+                                   value="<?php echo htmlspecialchars($nome_liga_form); ?>">
+                        </div>
+
+                        <div class="campo-form">
+                            <label for="chave_entrada">Palavra-chave da liga:</label><br>
+                            <input type="text" id="chave_entrada" name="chave_entrada"
+                                   value="<?php echo htmlspecialchars($chave_entrada_form); ?>">
+                        </div>
+
+                        <div class="botoes-form">
+                            <button type="submit" class="btn">Criar liga</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+            <div class="botoes-rodape">
+                <button type="button" class="btn" onclick="window.location.href='index.php'">
+                    Voltar ao menu
+                </button>
+            </div>
+
         </div>
     </div>
-
-    <p>
-        <button type="button" onclick="window.location.href='index.php'">
-            Voltar ao menu
-        </button>
-    </p>
-
 </body>
-
 </html>
