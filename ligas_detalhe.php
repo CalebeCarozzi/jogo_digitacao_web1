@@ -95,7 +95,7 @@ if (empty($mensagem_erro)) {
             if (empty($chave_digitada)) {
                 $erros_entrada[] = "A palavra-chave é obrigatória.";
             } else {
-              //aqui a chave tem que ser igual 
+                //aqui a chave tem que ser igual 
                 if ($chave_digitada !== $liga['chave_entrada']) {
                     $erros_entrada[] = "Palavra-chave incorreta.";
                 }
@@ -180,11 +180,13 @@ close_db($conn);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Detalhes da liga - Jogo Digitação</title>
     <link rel="stylesheet" href="css/styleligas_detalhe.css">
 </head>
+
 <body>
     <div class="page-wrapper">
         <div class="card-detalhe">
@@ -238,7 +240,7 @@ close_db($conn);
                     <?php if ($usuario_ja_membro): ?>
                         <p class="msg-ja-membro">Você já participa desta liga.</p>
                     <?php else: ?>
-                        <form method="post" action="ligas_detalhe.php?liga_id=<?php echo $liga_id; ?>" class="form-entrar">
+                        <form method="post" id="formEntrarLiga" action="ligas_detalhe.php?liga_id=<?php echo $liga_id; ?>" class="form-entrar">
                             <div class="campo-form">
                                 <label for="chave_entrada">Palavra-chave da liga:</label>
                                 <input type="text" id="chave_entrada" name="chave_entrada">
@@ -304,5 +306,7 @@ close_db($conn);
 
         </div>
     </div>
+    <script src="JS/validacao_forms.js"></script>
 </body>
+
 </html>

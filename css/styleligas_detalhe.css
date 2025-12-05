@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Roboto+Mono&display=swap');
+
+:root {
+    --bgcolor: #161d27;
+    --textoPrincipal: #E6EDF3;
+    --textoSecundario: #A1A9BA;
+    --corBotao: #326496;
+    --corDestaque1: #ffd700;
+    --corDestaque2: #c0c0c0;
+    --corDestaque3: #cd7f32;
+    --fonteTitulo: "Bungee", sans-serif;
+    --fonteTexto: "Roboto Mono", monospace;
+}
+
+/* fundo e centralização */
+body {
+    background-color: var(--bgcolor);
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    margin: 0;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* card principal */
+.card-detalhe {
+    background-color: #1f2733;
+    padding: 24px 32px 28px;
+    border-radius: 10px;
+    width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* título principal */
+.card-detalhe h1 {
+    font-family: var(--fonteTitulo);
+    margin: 0 0 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+/* subtítulos */
+h2 {
+    font-family: var(--fonteTitulo);
+    font-size: 1.1rem;
+    margin: 20px 0 12px;
+    color: var(--textoPrincipal);
+    text-align: center;
+}
+
+/* mensagens */
+.msg-erro {
+    color: #ff6b6b;
+    text-align: center;
+}
+
+.msg-sucesso {
+    color: #4caf50;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* container de info da liga */
+.info-liga-container {
+    background-color: #1b2432;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #2b3647;
+    margin-bottom: 20px;
+}
+
+.info-linha {
+    margin: 6px 0;
+    font-size: 0.95rem;
+    color: var(--textoSecundario);
+}
+
+.info-linha strong {
+    color: var(--textoPrincipal);
+}
+
+.divisor {
+    border: 0;
+    border-top: 1px solid #2b3647;
+    margin: 12px 0;
+}
+
+/* seção entrar na liga */
+.secao-entrar {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.form-entrar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.campo-form {
+    width: 100%;
+    max-width: 300px;
+    text-align: left;
+}
+
+.campo-form label {
+    font-size: 0.9rem;
+    color: var(--textoSecundario);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.campo-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #2b3647;
+    background-color: #0f141c;
+    color: var(--textoPrincipal);
+    font-family: var(--fonteTexto);
+    box-sizing: border-box;
+}
+
+.erros-entrada {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-align: left;
+    background-color: rgba(255, 107, 107, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.msg-ja-membro {
+    color: var(--textoSecundario);
+    font-style: italic;
+}
+
+/* tabela ranking da liga */
+.tabela-wrapper {
+    max-height: 240px;
+    overflow-y: auto;
+    border-radius: 6px;
+    border: 1px solid #2b3647;
+    margin-top: 10px;
+}
+
+/* scrollbar customizada */
+.tabela-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+.tabela-wrapper::-webkit-scrollbar-thumb {
+    background-color: #2b3647;
+    border-radius: 3px;
+}
+
+.tabela-detalhe {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabela-detalhe thead th {
+    background-color: #243143;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    color: var(--textoPrincipal);
+    padding: 10px;
+    font-weight: bold;
+}
+
+.tabela-detalhe td {
+    padding: 8px 10px;
+    text-align: center;
+    color: var(--textoPrincipal);
+    border-bottom: 1px solid #1f2733;
+}
+
+/* linhas alternadas */
+.tabela-detalhe tbody tr:nth-child(odd) {
+    background-color: #1b2432;
+}
+.tabela-detalhe tbody tr:nth-child(even) {
+    background-color: #151c27;
+}
+
+/* destaque top 3 */
+.pos-1 td { border-bottom: 2px solid var(--corDestaque1); }
+.pos-2 td { border-bottom: 2px solid var(--corDestaque2); }
+.pos-3 td { border-bottom: 2px solid var(--corDestaque3); }
+
+.sem-dados {
+    color: var(--textoSecundario);
+    text-align: center;
+    font-style: italic;
+}
+
+/* botões gerais */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: var(--corBotao);
+    color: var(--textoPrincipal);
+    text-decoration: none;
+    font-family: var(--fonteTexto);
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #3a78b2;
+}
+
+/* rodapé com botões de voltar */
+.botoes-rodape {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
