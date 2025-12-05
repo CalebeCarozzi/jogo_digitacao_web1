@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 
-    
+
     //insert no banco de dados
 
     if ($erro === false) {
@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
             <?php endif; ?>
 
-            <form method="post" action="register.php">
+            <form method="post" id="formRegister" action="register.php">
                 <div>
                     <label for="nome">Nome:</label><br>
                     <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="<?php echo $nome; ?>">
@@ -186,6 +186,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         </div>
     </div>
+    <script src="JS/validacao_forms.js"></script>
+</body>
+
 </body>
 
 </html>

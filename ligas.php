@@ -144,12 +144,12 @@ while ($linha = mysqli_fetch_assoc($result_ligas)) {
     $eh_membro = ($membro_atual !== null);
 
     $data_criacao_db = mysqli_real_escape_string($conn, $data_criacao);
-
+    
     $sql = "SELECT SUM(p.pontuacao) AS total_pontos
             FROM ligas_membros lm
             JOIN partidas p ON p.usuario_id = lm.usuario_id
             WHERE lm.liga_id = $liga_id
-            AND p.data_partida >= '$data_criacao_db'";
+              AND p.data_partida >= lm.data_entrada";
 
     $res_totais = mysqli_query($conn, $sql);
 
@@ -165,8 +165,8 @@ while ($linha = mysqli_fetch_assoc($result_ligas)) {
             FROM ligas_membros lm
             JOIN partidas p ON p.usuario_id = lm.usuario_id
             WHERE lm.liga_id = $liga_id
-            AND p.data_partida >= '$data_criacao_db'
-            AND p.data_partida >= (NOW() - INTERVAL 1 hour)";
+              AND p.data_partida >= lm.data_entrada
+              AND p.data_partida >= (NOW() - INTERVAL 7 DAY)";
 
     $res_semana = mysqli_query($conn, $sql);
 
@@ -208,11 +208,13 @@ if ($ordenacao === "semana") {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Ligas - Jogo Digitação</title>
     <link rel="stylesheet" href="css/styleligas.css">
 </head>
+
 <body>
     <div class="page-wrapper">
         <div class="card-ligas">
@@ -237,16 +239,16 @@ if ($ordenacao === "semana") {
                         <div class="filtros-ordenacao">
                             <span>Ordenar por:</span>
 
-                        <button type="submit" name="order" value="semana"
-                            class="btn-filtro<?php echo $ordenacao === 'semana' ? ' ativo' : ''; ?>">
-                            Pontos na última semana
-                        </button>
+                            <button type="submit" name="order" value="semana"
+                                class="btn-filtro<?php echo $ordenacao === 'semana' ? ' ativo' : ''; ?>">
+                                Pontos na última semana
+                            </button>
 
-                        <button type="submit" name="order" value="total"
+                            <button type="submit" name="order" value="total"
                                 class="btn-filtro<?php echo $ordenacao === 'total' ? ' ativo' : ''; ?>">
-                            Pontos totais da liga
-                        </button>
-                    </div>
+                                Pontos totais da liga
+                            </button>
+                        </div>
                     </form>
 
                     <?php if (count($ligas) === 0): ?>
@@ -338,17 +340,17 @@ if ($ordenacao === "semana") {
                         </div>
                     <?php endif; ?>
 
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                    <form method="post" id="formCriarLiga" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                         <div class="campo-form">
                             <label for="nome_liga">Nome da liga:</label><br>
                             <input type="text" id="nome_liga" name="nome_liga"
-                                   value="<?php echo htmlspecialchars($nome_liga_form); ?>">
+                                value="<?php echo htmlspecialchars($nome_liga_form); ?>">
                         </div>
 
                         <div class="campo-form">
                             <label for="chave_entrada">Palavra-chave da liga:</label><br>
                             <input type="text" id="chave_entrada" name="chave_entrada"
-                                   value="<?php echo htmlspecialchars($chave_entrada_form); ?>">
+                                value="<?php echo htmlspecialchars($chave_entrada_form); ?>">
                         </div>
 
                         <div class="botoes-form">
@@ -366,5 +368,7 @@ if ($ordenacao === "semana") {
 
         </div>
     </div>
+    <script src="JS/validacao_forms.js"></script>
 </body>
+
 </html>
